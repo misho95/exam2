@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SingIn</title>
+    <link
+      href="
+    http://localhost:3000/static/css/forms.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+  </head>
+  <body>
+    <h1>SINGIN</h1>
+    <form method="post" action="/signin">
+      <fieldset>
+        <legend>Email</legend>
+        <input type="text" name="email" placeholder="example@mail.com" />
+      </fieldset>
+      <fieldset>
+        <legend>Password</legend>
+        <input type="password" name="pass" placeholder="*******" />
+      </fieldset>
+      <a href="/signup">Dont have an Account? click here!</a>
+      <button>SIGNIN</button>
+    </form>
+  </body>
+</html>

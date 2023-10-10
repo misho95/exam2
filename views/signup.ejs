@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignUp</title>
+    <link
+      href="
+    http://localhost:3000/static/css/forms.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+  </head>
+  <body>
+    <h1>SIGNUP</h1>
+    <form method="post" action="/signup">
+      <fieldset>
+        <legend>FirstName</legend>
+        <input type="text" name="firstName" placeholder="Firstname" required />
+      </fieldset>
+      <fieldset>
+        <legend>LastName</legend>
+        <input type="text" name="lastname" placeholder="Lastname" required />
+      </fieldset>
+      <fieldset>
+        <legend>Email</legend>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          placeholder="Example@mail.com"
+          required
+        />
+      </fieldset>
+      <div id="emailCheck"></div>
+      <fieldset>
+        <legend>PassWord</legend>
+        <input type="password" name="pass" placeholder="*******" required />
+      </fieldset>
+      <a href="/signin">Already have an account? click here!</a>
+      <button id="signUpBtn">SignUp</button>
+    </form>
+
+    <script>
+      const userData = <%- JSON.stringify(data) %>;
+      const email = document.querySelector('#email');
+      const emailCheck = document.querySelector("#emailCheck");
+      const signUpBtn = document.querySelector('#signUpBtn');
+      email.addEventListener('keyup', (e) => {
+        const value = e.target.value
+        const findEmail = userData.find((u) => {
+          if(u.email === value){
+            return u;
+          }
+        })
+
+        if(findEmail){
+          emailCheck.textContent = "Already Used";
+          emailCheck.classList.remove('green-text');
+          emailCheck.classList.add('red-text');
+          signUpBtn.setAttribute('disabled', "");
+        } else {
+          emailCheck.textContent = "Avalable"
+          emailCheck.classList.remove('red-text');
+          emailCheck.classList.add('green-text');
+          signUpBtn.removeAttribute('disabled');
+        }
+      })
+    </script>
+  </body>
+</html>

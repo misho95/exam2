@@ -1,0 +1,141 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #171717;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: center;
+}
+
+header {
+  background-color: #404040;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-container {
+  width: 1110px;
+  display: flex;
+  justify-content: space-between;
+}
+
+nav {
+  display: flex;
+  gap: 5px;
+}
+
+nav a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: #737373;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+nav a:hover {
+  color: #e5e5e5;
+}
+
+.container {
+  width: 1110px;
+}
+
+.expense-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.expense-box {
+  width: 180px;
+  height: fit-content;
+  background-color: #404040;
+  border-radius: 10px;
+  padding: 10px;
+  color: #a3a3a3;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.expense-box button {
+  background-color: #ef4444;
+  padding: 5px 0px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+}
+
+.expense-box a {
+  width: 100%;
+  background-color: #f59e0b;
+  padding: 5px 0px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+}
+
+.add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.add-form fieldset {
+  padding: 2px;
+}
+
+.add-form legend {
+  color: #737373;
+  padding: 0 20px;
+  margin: 0 10px;
+}
+
+.add-form input,
+select {
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+  height: 30px;
+  width: 100%;
+  color: #737373;
+}
+
+.add-form button {
+  height: 40px;
+  color: #fca5a5;
+  background-color: #ef4444;
+}
+
+@media (max-width: 840px) {
+  .header-container {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .container {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .expense-container {
+    gap: 20px;
+  }
+
+  .expense-box {
+    width: 100%;
+  }
+}
