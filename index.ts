@@ -69,6 +69,7 @@ app.get("/", authMiddleWear, (req: RequestCustom, res: Response) => {
         res.render("index", { expenses: [] });
         return;
       }
+
       const token = req.token;
       const allExpenses: ExpenseType[] = JSON.parse(data.toString());
       const expenses = allExpenses.filter((e) => {
@@ -263,6 +264,10 @@ app.get("/signup", authMiddleWearForm, (req: Request, res: Response) => {
   readFile(
     path.join(__dirname, "users.json"),
     (err: NodeJS.ErrnoException | null, data: string | Buffer) => {
+      if (err) {
+        res.render("signup", { data: [] });
+        return;
+      }
       const userData: UsersType[] = JSON.parse(data.toString());
       res.render("signup", { data: userData });
     }
@@ -272,8 +277,8 @@ app.get("/signup", authMiddleWearForm, (req: Request, res: Response) => {
 app.post("/signup", authMiddleWearForm, (req: Request, res: Response) => {
   const user = {
     id: new Date().getTime(),
-    firstname: req.body.firstName,
-    lastname: req.body.lastName,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
     email: req.body.email,
     pass: req.body.pass,
   };
