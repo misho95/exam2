@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Expense</title>
+    <link
+      href="
+    http://localhost:3000/static/css/main.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <a href="/" style="color: white; text-decoration: none"
+          ><h3>Budget-App</h3></a
+        >
+        <nav>
+          <a href="/">
+            <span class="material-symbols-outlined"> home </span>
+          </a>
+          <a href="/add">
+            <span class="material-symbols-outlined"> add_circle </span>
+          </a>
+          <a href="/signin">
+            <span class="material-symbols-outlined"> person </span>
+          </a>
+          <a href="/singup">
+            <span class="material-symbols-outlined"> person_add </span>
+          </a>
+          <a href="/logout">
+            <span class="material-symbols-outlined"> logout </span>
+          </a>
+        </nav>
+      </div>
+    </header>
+    <div class="container">
+      <form class="add-form" method="post" action="/add">
+        <fieldset>
+          <legend>Amount</legend>
+          <input type="text" placeholder="amount" name="amount" />
+        </fieldset>
+        <fieldset>
+          <legend>Type</legend>
+          <select name="type">
+            <option>expense</option>
+            <option>income</option>
+          </select>
+        </fieldset>
+        <fieldset>
+          <legend>Category</legend>
+          <select name="category">
+            <option>shopping</option>
+            <option>sallary</option>
+            <option>invoice</option>
+            <option>other</option>
+          </select>
+        </fieldset>
+        <button>Add new invoice</button>
+      </form>
+    </div>
+  </body>
+</html>
