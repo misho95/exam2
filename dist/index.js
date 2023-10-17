@@ -10,8 +10,9 @@ const bodyParser = require("body-parser");
 const sessionStorage = require("sessionstorage-for-nodejs");
 const app = (0, express_1.default)();
 app.use(bodyParser.urlencoded({ extended: true }));
-// 1. uses ejs template engine
-app.use("/static", express_1.default.static(__dirname + "/public"));
+app.use("/static", express_1.default.static(__dirname + "public"));
+app.use(express_1.default.static("public"));
+app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "ejs");
 app.use(express_1.default.json());
 const authMiddleWear = (req, res, next) => {
@@ -163,6 +164,7 @@ app.post("/signin", authMiddleWearForm, (req, res) => {
         });
         if (!findUser) {
             res.status(400);
+            res.send({ error: "Invalid Credentials!" });
             return;
         }
         sessionStorage.setItem("accessToken", findUser.id);

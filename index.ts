@@ -1,13 +1,13 @@
 import express, { Express, Request, Response, NextFunction } from "express";
-const { readFile, writeFile } = require("fs");
-const path = require("path");
-const bodyParser = require("body-parser");
+import { readFile, writeFile } from "fs";
+import path from "path";
+import bodyParser from "body-parser";
 const sessionStorage = require("sessionstorage-for-nodejs");
 const app: Express = express();
 app.use(bodyParser.urlencoded({ extended: true }));
-// 1. uses ejs template engine
-app.use("/static", express.static(__dirname + "/public"));
-
+app.use("/static", express.static(__dirname + "public"));
+app.use(express.static("public"));
+app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "ejs");
 app.use(express.json());
 
@@ -250,6 +250,7 @@ app.post("/signin", authMiddleWearForm, (req: Request, res: Response) => {
 
       if (!findUser) {
         res.status(400);
+        res.send({ error: "Invalid Credentials!" });
         return;
       }
 
