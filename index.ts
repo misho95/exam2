@@ -63,7 +63,7 @@ const authMiddleWearForm = (
 
 app.get("/", authMiddleWear, (req: RequestCustom, res: Response) => {
   readFile(
-    path.join(__dirname, "expense.json"),
+    "expense.json",
     (err: NodeJS.ErrnoException | null, data: string | Buffer) => {
       if (err) {
         res.render("index", { expenses: [] });
@@ -98,7 +98,7 @@ app.post("/add", authMiddleWear, (req: RequestCustom, res: Response) => {
   };
 
   readFile(
-    path.join(__dirname, "expense.json"),
+    "expense.json",
     (err: NodeJS.ErrnoException | null, data: string | Buffer) => {
       if (err) {
         // create new file
@@ -135,7 +135,7 @@ app.delete(
     const id = req.params.id;
 
     readFile(
-      path.join(__dirname, "expense.json"),
+      "expense.json",
       (err: NodeJS.ErrnoException | null, data: string | Buffer) => {
         if (err) {
           res.status(400);
@@ -163,7 +163,7 @@ app.get("/edit/:id", authMiddleWear, (req: RequestCustom, res: Response) => {
   const id = req.params.id;
 
   readFile(
-    path.join(__dirname, "expense.json"),
+    "expense.json",
     (err: NodeJS.ErrnoException | null, data: string | Buffer) => {
       if (err) {
         res.status(400);
@@ -189,7 +189,7 @@ app.post("/edit/:id", authMiddleWear, (req: RequestCustom, res: Response) => {
   const { amount, type, category } = req.body;
 
   readFile(
-    path.join(__dirname, "expense.json"),
+    "expense.json",
     (err: NodeJS.ErrnoException | null, data: string | Buffer) => {
       if (err) {
         res.status(400);
@@ -233,10 +233,11 @@ app.get("/signin", authMiddleWearForm, (req: Request, res: Response) => {
 
 app.post("/signin", authMiddleWearForm, (req: Request, res: Response) => {
   readFile(
-    path.join(__dirname, "users.json"),
+    "users.json",
     (err: NodeJS.ErrnoException | null, data: string | Buffer) => {
       if (err) {
         res.status(400);
+        res.send({ error: "can'read users data!" });
         return;
       }
 
@@ -263,7 +264,7 @@ app.post("/signin", authMiddleWearForm, (req: Request, res: Response) => {
 
 app.get("/signup", authMiddleWearForm, (req: Request, res: Response) => {
   readFile(
-    path.join(__dirname, "users.json"),
+    "users.json",
     (err: NodeJS.ErrnoException | null, data: string | Buffer) => {
       if (err) {
         res.render("signup", { data: [] });

@@ -4,15 +4,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const { readFile, writeFile } = require("fs");
-const path = require("path");
-const bodyParser = require("body-parser");
+const fs_1 = require("fs");
+const path_1 = __importDefault(require("path"));
+const body_parser_1 = __importDefault(require("body-parser"));
 const sessionStorage = require("sessionstorage-for-nodejs");
 const app = (0, express_1.default)();
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use("/static", express_1.default.static(__dirname + "public"));
 app.use(express_1.default.static("public"));
-app.set("views", path.join(__dirname, "../views"));
+app.set("views", path_1.default.join(__dirname, "../views"));
 app.set("view engine", "ejs");
 app.use(express_1.default.json());
 const authMiddleWear = (req, res, next) => {
@@ -34,7 +34,7 @@ const authMiddleWearForm = (req, res, next) => {
     next();
 };
 app.get("/", authMiddleWear, (req, res) => {
-    readFile(path.join(__dirname, "expense.json"), (err, data) => {
+    (0, fs_1.readFile)("expense.json", (err, data) => {
         if (err) {
             res.render("index", { expenses: [] });
             return;
@@ -61,10 +61,10 @@ app.post("/add", authMiddleWear, (req, res) => {
         category,
         userId: req.token,
     };
-    readFile(path.join(__dirname, "expense.json"), (err, data) => {
+    (0, fs_1.readFile)("expense.json", (err, data) => {
         if (err) {
             // create new file
-            writeFile("expense.json", JSON.stringify([exp]), function (err) {
+            (0, fs_1.writeFile)("expense.json", JSON.stringify([exp]), function (err) {
                 if (err)
                     throw err;
                 res.status(200);
@@ -73,7 +73,7 @@ app.post("/add", authMiddleWear, (req, res) => {
         }
         else {
             const parseData = JSON.parse(data.toString());
-            writeFile("expense.json", JSON.stringify([...parseData, exp]), (err) => {
+            (0, fs_1.writeFile)("expense.json", JSON.stringify([...parseData, exp]), (err) => {
                 if (err)
                     throw err;
                 res.status(200);
@@ -84,7 +84,7 @@ app.post("/add", authMiddleWear, (req, res) => {
 });
 app.delete("/delete/:id", authMiddleWear, (req, res) => {
     const id = req.params.id;
-    readFile(path.join(__dirname, "expense.json"), (err, data) => {
+    (0, fs_1.readFile)("expense.json", (err, data) => {
         if (err) {
             res.status(400);
             throw err;
@@ -94,7 +94,7 @@ app.delete("/delete/:id", authMiddleWear, (req, res) => {
             if (+e.id !== +id)
                 return e;
         });
-        writeFile("expense.json", JSON.stringify(deleteData), (err) => {
+        (0, fs_1.writeFile)("expense.json", JSON.stringify(deleteData), (err) => {
             if (err)
                 throw err;
             res.status(200).send("okey!");
@@ -103,7 +103,7 @@ app.delete("/delete/:id", authMiddleWear, (req, res) => {
 });
 app.get("/edit/:id", authMiddleWear, (req, res) => {
     const id = req.params.id;
-    readFile(path.join(__dirname, "expense.json"), (err, data) => {
+    (0, fs_1.readFile)("expense.json", (err, data) => {
         if (err) {
             res.status(400);
             throw err;
@@ -121,7 +121,7 @@ app.get("/edit/:id", authMiddleWear, (req, res) => {
 app.post("/edit/:id", authMiddleWear, (req, res) => {
     const id = req.params.id;
     const { amount, type, category } = req.body;
-    readFile(path.join(__dirname, "expense.json"), (err, data) => {
+    (0, fs_1.readFile)("expense.json", (err, data) => {
         if (err) {
             res.status(400);
             throw err;
@@ -137,7 +137,7 @@ app.post("/edit/:id", authMiddleWear, (req, res) => {
                 return e;
             }
         });
-        writeFile("expense.json", JSON.stringify(update), (err) => {
+        (0, fs_1.writeFile)("expense.json", JSON.stringify(update), (err) => {
             if (err) {
                 res.status(400);
                 throw err;
@@ -151,9 +151,10 @@ app.get("/signin", authMiddleWearForm, (req, res) => {
     res.render("signin");
 });
 app.post("/signin", authMiddleWearForm, (req, res) => {
-    readFile(path.join(__dirname, "users.json"), (err, data) => {
+    (0, fs_1.readFile)("users.json", (err, data) => {
         if (err) {
             res.status(400);
+            res.send({ error: "can'read users data!" });
             return;
         }
         const parseUsers = JSON.parse(data.toString());
@@ -173,7 +174,7 @@ app.post("/signin", authMiddleWearForm, (req, res) => {
     });
 });
 app.get("/signup", authMiddleWearForm, (req, res) => {
-    readFile(path.join(__dirname, "users.json"), (err, data) => {
+    (0, fs_1.readFile)("users.json", (err, data) => {
         if (err) {
             res.render("signup", { data: [] });
             return;
@@ -190,10 +191,10 @@ app.post("/signup", authMiddleWearForm, (req, res) => {
         email: req.body.email,
         pass: req.body.pass,
     };
-    readFile(path.join(__dirname, "users.json"), (err, data) => {
+    (0, fs_1.readFile)(path_1.default.join(__dirname, "users.json"), (err, data) => {
         if (err) {
             // create new file
-            writeFile("users.json", JSON.stringify([user]), function (err) {
+            (0, fs_1.writeFile)("users.json", JSON.stringify([user]), function (err) {
                 if (err)
                     throw err;
                 res.status(200);
@@ -203,7 +204,7 @@ app.post("/signup", authMiddleWearForm, (req, res) => {
         }
         else {
             const parsedUserData = JSON.parse(data.toString());
-            writeFile("users.json", JSON.stringify([...parsedUserData, user]), (err) => {
+            (0, fs_1.writeFile)("users.json", JSON.stringify([...parsedUserData, user]), (err) => {
                 if (err)
                     throw err;
                 res.status(200);
